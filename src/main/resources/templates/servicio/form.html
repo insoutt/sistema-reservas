@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: frgHead"></head>
+
+<body>
+    <nav th:replace="layout :: frgNavbar"></nav>
+    <div class="container-fluid">
+        <div class="row">
+        <div th:replace="layout :: frgSidebar"></div>
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        	<h2 th:text="${title}" class="mb-4"></h2>
+            <form th:action="@{/servicio/save}" th:object="${servicio}" method="POST">
+	            <div class="form-group row">
+			        <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+			        <div class="col-sm-10">
+			            <input id="nombre" type="text" class="form-control" th:field="*{nombre}" placeholder="Nombre">
+			        </div>
+			    </div>
+			    <div class="form-group row">
+			        <label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
+			        <div class="col-sm-10">
+			            <input id="imagen" type="text" class="form-control" th:field="*{imagen}" placeholder="Imagen">
+			        </div>
+			    </div>
+			    
+			    <div class="form-group row">
+			        <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+			        <div class="col-sm-10">
+			            <input id="descripcion" type="text" class="form-control" th:field="*{descripcion}" placeholder="Descripción">
+			        </div>
+			    </div>
+			    
+			    <div class="form-group row">
+			        <label for="horario" class="col-sm-2 col-form-label">Horario</label>
+			        <div class="col-sm-10">
+			            <input id="horario" type="text" class="form-control" th:field="*{horario}" placeholder="Horario">
+			        </div>
+			    </div>
+			    
+			    <div class="form-group row">
+			        <label for="callePrincipal" class="col-sm-2 col-form-label">Calle principal</label>
+			        <div class="col-sm-10">
+			            <input id="callePrincipal" type="text" class="form-control" th:field="*{callePrincipal}" placeholder="Calle principal">
+			        </div>
+			    </div>
+			    
+			    <div class="form-group row">
+			        <label for="calleSecundaria" class="col-sm-2 col-form-label">Calle secundaria</label>
+			        <div class="col-sm-10">
+			            <input id="calleSecundaria" type="text" class="form-control" th:field="*{calleSecundaria}" placeholder="Calle secundaria">
+			        </div>
+			    </div>
+
+				<div class="form-group row">
+			        <label for="gerentes" class="col-sm-2 col-form-label">Gerente</label>
+			        <div class="col-sm-10">
+			        	<select class="form-control" th:field=*{gerente.idPersona}>
+			        		<option value="">Seleccione un gerente</option>
+			        		<option th:each="gerente : ${gerentes}" 
+			        				th:value="${gerente.idPersona}" 
+			        				th:text="${gerente.nombres}"></option>
+			        	</select>
+
+			        </div>
+			    </div>
+				
+
+                <div class="form-group row">
+                    <div class="col-sm-12 mb-3 mb-sm-0 text-center">
+                        <input type="submit" class="btn btn-success" value="Guardar" />
+                        <a th:href="@{/servicio/list}" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </div>
+
+				
+                <input type="hidden" th:field="*{idServicio}" />
+
+            </form>
+        </main>
+        </div>
+    </div>
+</body>
+
+</html>

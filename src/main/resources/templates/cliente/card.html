@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: frgHead"></head>
+
+<body>
+    <nav th:replace="layout :: frgNavbar"></nav>
+    <div class="container-fluid">
+        <div class="row">
+        <div th:replace="layout :: frgSidebar"></div>
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="card">
+		        <h5 class="card-header" th:text="${title}"></h5>
+		        <ul class="list-group list-group-flush">
+			        <li class="list-group-item"><b>Cédula: </b> <span th:text="${cliente.cedula}"></span></li>
+			        <li class="list-group-item"><b>Nombres: </b> <span th:text="${cliente.nombres}"></span></li>
+			        <li class="list-group-item"><b>Apellidos: </b><span th:text="${cliente.apellidos}"></span></li>
+			        <li class="list-group-item"><b>Fecha de nacimiento: </b><span th:text="${cliente.fechaNac()}"></span></li>
+			        <li class="list-group-item"><b>Correo electrónico: </b><span th:text="${cliente.email}"></span></li>
+			        <li class="list-group-item"><b>Teléfono: </b><span th:text="${cliente.telefono}"></span></li>
+			        <li class="list-group-item"><b>Género: </b><span th:text="${cliente.genero}"></span></li>
+			        <li class="list-group-item"><b>Calle principal: </b><span th:text="${cliente.callePrincipal}"></span></li>
+			        <li class="list-group-item"><b>Calle secundaria: </b><span th:text="${cliente.callePrincipal}"></span></li>
+			        <li class="list-group-item"><b>Número de casa: </b><span th:text="${cliente.nroCasa}"></span></li>
+			    </ul>
+					        
+		    </div>
+        </main>
+        </div>
+    </div>
+</body>
+
+</html>

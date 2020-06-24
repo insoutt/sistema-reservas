@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: frgHead"></head>
+
+<body>
+    <nav th:replace="layout :: frgNavbar"></nav>
+    <div class="container-fluid">
+        <div class="row">
+        <div th:replace="layout :: frgSidebar"></div>
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="card mb-4">
+		        <h5 class="card-header" th:text="${title}"></h5>
+		        <ul class="list-group list-group-flush">
+			        <li class="list-group-item"><b>Nombres: </b> <span th:text="${gerente.nombres}"></span></li>
+			        <li class="list-group-item"><b>Apellidos: </b><span th:text="${gerente.apellidos}"></span></li>
+			        <li class="list-group-item"><b>Fecha de nacimiento: </b><span th:text="${gerente.fechaNac()}"></span></li>
+			        <li class="list-group-item"><b>Correo electrónico: </b><span th:text="${gerente.email}"></span></li>
+			        <li class="list-group-item"><b>Teléfono: </b><span th:text="${gerente.telefono}"></span></li>
+			        <li class="list-group-item"><b>Género: </b><span th:text="${gerente.genero}"></span></li>
+			        <li class="list-group-item"><b>Descripción: </b><span th:text="${gerente.descripcion}"></span></li>
+			        <li class="list-group-item"><b>Especialización: </b><span th:text="${gerente.especializacion}"></span></li>
+			    </ul>	        
+		    </div>
+		    
+		    <div class="card">
+		        <h5 class="card-header">Servicios</h5>
+		        <ul class="list-group list-group-flush">
+			        <li th:each="servicio : ${servicios}" class="list-group-item d-flex justify-content-between">
+			        <span th:text="${servicio.nombre}"></span>
+			        <a href="#" class="card-link">Solicitar</a>
+			        </li>
+			    </ul>	        
+		    </div>
+        </main>
+        </div>
+    </div>
+</body>
+
+</html>
