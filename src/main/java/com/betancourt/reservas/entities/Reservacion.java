@@ -121,4 +121,9 @@ public class Reservacion implements Serializable {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");		
 		return sdf.format(fecha.getTime());
 	}
+
+	@Override
+	public String toString() {
+		return "Reservacion " + titulo;
+	}
 }

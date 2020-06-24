@@ -27,12 +27,12 @@
     </nav>
 
 	  <div class="container-fluid">
-        <nav th:fragment="frgSidebar" class="col-md-2 d-none d-md-block bg-light sidebar" style="margin-top: 40px;">
+        <nav th:fragment="frgSidebar" class="col-md-2 d-none d-md-block bg-dark sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                 <li class="nav-item">
                         <a class="nav-link" th:href="@{/}">
-                            <i class="fa fa-check fa-fw"></i>
+                            <i class="fa fa-dashboard fa-fw"></i>
                             Inicio
                         </a>
                     </li>
@@ -58,7 +58,7 @@
                    
                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/servicio/list}">
-                            <i class="fa fa-user-o fa-fw"></i>
+                            <i class="fa fa-folder-open fa-fw"></i>
                             Servicios
                         </a>
                     </li>

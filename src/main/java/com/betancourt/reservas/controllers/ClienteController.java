@@ -62,6 +62,7 @@ public class ClienteController {
 	public String list(Model model) {
 		List<Cliente> clientes = srvCliente.findAll();
 		model.addAttribute("clientes", clientes);
+		model.addAttribute("title", "Listado de clientes");
 		return "cliente/list";
 	}
 }

@@ -61,6 +61,7 @@ public class GerenteController {
 	public String list(Model model) {
 		List<Gerente> gerentes = srvGerente.findAll();
 		model.addAttribute("gerentes", gerentes);
+		model.addAttribute("title", "Listado de gerentes");
 		return "gerente/list";
 	}
 	

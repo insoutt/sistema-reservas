@@ -1,0 +1,15 @@
+.container-fluid {
+	height: 95vh;
+}
+
+.container-fluid > .row{
+	height: 100%;
+}
+
+.nav-link {
+	color: white;
+}
+
+.nav-link:hover {
+    color: #d5d5d5;
+}

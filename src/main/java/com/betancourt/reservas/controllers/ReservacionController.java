@@ -60,6 +60,7 @@ public class ReservacionController {
 	@GetMapping(value="/list")
 	public String list(Model model) {
 		List<Reservacion> reservaciones = srvReservacion.findAll();
+		model.addAttribute("title", "Listado de reservaciones");
 		model.addAttribute("reservaciones", reservaciones);
 		return "reservacion/list";
 	}

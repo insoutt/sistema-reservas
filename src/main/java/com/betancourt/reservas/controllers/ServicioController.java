@@ -71,6 +71,7 @@ public class ServicioController {
 	public String list(Model model) {
 		List<Servicio> servicios = srvServicio.findAll();
 		model.addAttribute("servicios", servicios);
+		model.addAttribute("title", "Listado de servicios");
 		return "servicio/list";
 	}
 }
