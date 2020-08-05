@@ -7,42 +7,42 @@
     <nav th:replace="layout :: frgNavbar"></nav>
     <div class="container-fluid">
         <div class="row">
-        <div th:replace="layout :: frgSidebar"></div>
-        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 th:text="${title}"></h1>
-                <a class="btn btn-success" th:href="@{/gerente/create}"> <i class="fa fa-plus"></i> Nuevo</a>
-            </div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Cédula</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Fecha nacimiento</th>
-                        <th>Especialización</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="gerente : ${gerentes}">
-                        <td th:text="${gerente.cedula}"></td>
-                        <td th:text="${gerente.nombres}"></td>
-                        <td th:text="${gerente.apellidos}"></td>
-                        <td th:text="${gerente.fechaNac()}"></td>
-                        <td th:text="${gerente.especializacion}"></td>
-                        <td>
-                            <a class="btn btn-sm btn-warning" th:href="@{/gerente/update/} + ${gerente.idPersona}">
-                                <i class="fa fa-pencil-square-o"></i>
-                            </a>
-                            <a class="btn btn-sm btn-info" th:href="@{/gerente/retrieve/} + ${gerente.idPersona}">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
+            <div th:replace="layout :: frgSidebar"></div>
+            <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 th:text="${title}"></h1>
+                    <a class="btn btn-success" th:href="@{/gerente/create}"> <i class="fa fa-plus"></i> Nuevo</a>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Fecha nacimiento</th>
+                            <th>Especialización</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="gerente : ${gerentes}">
+                            <td th:text="${gerente.cedula}"></td>
+                            <td th:text="${gerente.nombres}"></td>
+                            <td th:text="${gerente.apellidos}"></td>
+                            <td th:text="${gerente.fechaNac()}"></td>
+                            <td th:text="${gerente.especializacion}"></td>
+                            <td>
+                                <a class="btn btn-sm btn-warning" th:href="@{/gerente/update/} + ${gerente.idGerente}">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                                <a class="btn btn-sm btn-info" th:href="@{/gerente/retrieve/} + ${gerente.idGerente}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
         </div>
     </div>
 </body>

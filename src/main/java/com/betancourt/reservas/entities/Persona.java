@@ -1,6 +1,5 @@
 package com.betancourt.reservas.entities;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.persistence.Basic;
@@ -9,20 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
-public abstract class Persona {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name="pk_persona")
-	private Integer idPersona;
-	
+abstract class Persona {
 	@Column(name="nombres")
 	private String nombres;
 	
@@ -33,8 +21,6 @@ public abstract class Persona {
 	private String cedula;
 	
 	@Column(name="fecha_nacimiento")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private Calendar fechaNacimiento;
 	
 	@Column(name="email")
@@ -45,22 +31,10 @@ public abstract class Persona {
 	
 	@Column(name="genero")
 	private String genero;
-
+	
+	
 	public Persona() {
 		super();
-	}
-	
-	public Persona(Integer idPersona) {
-		super();
-		this.idPersona = idPersona;
-	}
-
-	public Integer getIdPersona() {
-		return idPersona;
-	}
-
-	public void setIdPersona(Integer idPersona) {
-		this.idPersona = idPersona;
 	}
 
 	public String getNombres() {
@@ -99,8 +73,8 @@ public abstract class Persona {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String correoElectronico) {
+		this.email = correoElectronico;
 	}
 
 	public String getTelefono() {
@@ -117,10 +91,5 @@ public abstract class Persona {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
-	}
-	
-	public String fechaNac() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");		
-		return sdf.format(fechaNacimiento.getTime());
 	}
 }

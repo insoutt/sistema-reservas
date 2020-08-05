@@ -3,18 +3,28 @@ package com.betancourt.reservas.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cliente")
+@Table(name="clientes")
 public class Cliente extends Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name="pk_cliente")
+	private Float idCliente;
+	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
 	private List<Reservacion> reservaciones;
 	
@@ -32,9 +42,17 @@ public class Cliente extends Persona implements Serializable {
 		super();
 	}
 
-	public Cliente(Integer idCliente) {
+	public Cliente(Float idCliente) {
 		super();
-		this.setIdPersona(idCliente);
+		this.idCliente = idCliente;
+	}
+
+	public Float getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Float idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public List<Reservacion> getReservaciones() {

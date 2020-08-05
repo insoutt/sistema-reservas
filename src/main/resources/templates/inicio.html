@@ -4,30 +4,32 @@
 <head th:replace="layout :: frgHead"></head>
 
 <body>
-<nav th:replace="layout :: frgNavbar"></nav>
+    <nav th:replace="layout :: frgNavbar"></nav>
     <div class="container-fluid">
-    	<div class="row">
-			<div th:replace="layout :: frgSidebar"></div>
-        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            
-			<h1>Sistema de gestión de reservas</h1>
-			<h3>Seleccione una persona para conocer sus servicios</h3>
-			
-			<div class="row">
-				<div th:each="gerente : ${gerentes}" class="div col-12 col-sm-4">
-					<div class="card">
-					  <div class="card-body">
-					    <h5 class="card-title" th:text="${gerente.nombres}"></h5>
-					    <h6 class="card-subtitle mb-2 text-muted" th:text="${gerente.especializacion}"></h6>
-					    <p class="card-text" th:text="${gerente.descripcion}"></p>
-					    <a th:href="@{/gerente/} + ${gerente.idPersona} + @{/servicios}" class="card-link text-center d-block">Ver servicios</a>
-					  </div>
-					</div>
-				</div>
-			</div>
-        </main>
-    	</div>
+        <div class="row">
+            <div th:replace="layout :: frgSidebar"></div>
+            <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+                <h1>Sistema de gestión de reservas</h1>
+                <h3>Seleccione una persona para conocer sus servicios</h3>
+
+                <div class="row">
+                    <div th:each="gerente : ${gerentes}" class="div col-12 col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${gerente.nombres}"></h5>
+                                <h6 class="card-subtitle mb-2 text-muted" th:text="${gerente.especializacion}"></h6>
+                                <p class="card-text" th:text="${gerente.descripcion}"></p>
+                                <a th:href="@{/gerente/} + ${gerente.idGerente} + @{/servicios}"
+                                    class="card-link text-center d-block">Ver servicios</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
+    <footer th:replace="layout :: frgFooter"></footer>
 </body>
 
 </html>

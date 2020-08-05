@@ -30,7 +30,7 @@ public class Reservacion implements Serializable {
 	@Column(name="pk_reservacion")
 	private Integer idReservacion;
 	
-	@JoinColumn(name = "fk_cliente", referencedColumnName = "pk_persona")
+	@JoinColumn(name = "fk_cliente", referencedColumnName = "pk_cliente")
 	@ManyToOne
 	private Cliente cliente;
 	

@@ -27,7 +27,7 @@ public class Servicio implements Serializable {
 	@Column(name="pk_servicio")
 	private Integer idServicio;
 	
-	@JoinColumn(name = "fk_gerente", referencedColumnName = "pk_persona")
+	@JoinColumn(name = "fk_gerente", referencedColumnName = "pk_gerente")
 	@ManyToOne
 	private Gerente gerente;
 	

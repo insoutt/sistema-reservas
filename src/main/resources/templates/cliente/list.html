@@ -6,42 +6,42 @@
 <body>
     <nav th:replace="layout :: frgNavbar"></nav>
     <div class="container-fluid">
-       <div class="row">
-       		 <div th:replace="layout :: frgSidebar"></div>
-        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 th:text="${title}"></h1>
-                <a class="btn btn-success" th:href="@{/cliente/create}"> <i class="fa fa-plus"></i> Nuevo</a>
-            </div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Cédula</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Fecha nacimiento</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="cliente : ${clientes}">
-                        <td th:text="${cliente.cedula}"></td>
-                        <td th:text="${cliente.nombres}"></td>
-                        <td th:text="${cliente.apellidos}"></td>
-                        <td th:text="${cliente.fechaNac()}"></td>
-                        <td>
-                            <a class="btn btn-sm btn-warning" th:href="@{/cliente/update/} + ${cliente.idPersona}">
-                                <i class="fa fa-pencil-square-o"></i>
-                            </a>
-                            <a class="btn btn-sm btn-info" th:href="@{/cliente/retrieve/} + ${cliente.idPersona}">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
-       </div>
+        <div class="row">
+            <div th:replace="layout :: frgSidebar"></div>
+            <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 th:text="${title}"></h1>
+                    <a class="btn btn-success" th:href="@{/cliente/create}"> <i class="fa fa-plus"></i> Nuevo</a>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Fecha nacimiento</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cliente : ${clientes}">
+                            <td th:text="${cliente.cedula}"></td>
+                            <td th:text="${cliente.nombres}"></td>
+                            <td th:text="${cliente.apellidos}"></td>
+                            <td th:text="${cliente.fechaNac()}"></td>
+                            <td>
+                                <a class="btn btn-sm btn-warning" th:href="@{/cliente/update/} + ${cliente.idCliente}">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                                <a class="btn btn-sm btn-info" th:href="@{/cliente/retrieve/} + ${cliente.idCliente}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+        </div>
     </div>
 </body>
 

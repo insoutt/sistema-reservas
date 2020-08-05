@@ -3,40 +3,54 @@ package com.betancourt.reservas.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "gerente")
+@Table(name="gerentes")
 public class Gerente extends Persona implements Serializable {
-
+	
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name="pk_gerente")
+	private Float idGerente;
+	
 	
 	@OneToMany(mappedBy = "gerente", fetch = FetchType.LAZY)
 	private List<Servicio> servicios;
 	
-	@Column(name="tipo_de_servicios")
-	private String tipoDeServicios;
+	@Column(name="especializacion")
+	private String especializacion;
 	
 	@Column(name="descripcion")
 	private String descripcion;
-	
-	@Column(name = "especializacion")
-	private String especializacion;
 
 	public Gerente() {
 		super();
 	}
 	
-	public Gerente(Integer id) {
+	public Gerente(Float id) {
 		super();
-		this.setIdPersona(id);
+		this.idGerente = id;
 	}
 
+	public Float getIdGerente() {
+		return idGerente;
+	}
+
+	public void setIdGerente(Float idGerente) {
+		this.idGerente = idGerente;
+	}
 
 	public List<Servicio> getServicios() {
 		return servicios;
@@ -46,12 +60,12 @@ public class Gerente extends Persona implements Serializable {
 		this.servicios = servicios;
 	}
 
-	public String getTipoDeServicios() {
-		return tipoDeServicios;
+	public String getEspecializacion() {
+		return especializacion;
 	}
 
-	public void setTipoDeServicios(String tipoDeServicios) {
-		this.tipoDeServicios = tipoDeServicios;
+	public void setEspecializacion(String especializacion) {
+		this.especializacion = especializacion;
 	}
 
 	public String getDescripcion() {
@@ -60,14 +74,5 @@ public class Gerente extends Persona implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	
-	
-	public String getEspecializacion() {
-		return especializacion;
-	}
-
-	public void setEspecializacion(String especializacion) {
-		this.especializacion = especializacion;
 	}
 }
