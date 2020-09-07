@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: frgHead"></head>
+
+<body>
+    <nav th:replace="layout :: frgNavbar"></nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="layout :: frgSidebar"></div>
+            <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1>Dashboard ServiPase</h1>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="clientes")
@@ -23,17 +25,23 @@ public class Cliente extends Persona implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name="pk_cliente")
-	private Float idCliente;
+	private Integer idCliente;
 	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
 	private List<Reservacion> reservaciones;
 	
+	@NotEmpty
+	@Size(max = 40)
 	@Column(name="calle_principal")
 	private String callePrincipal;
 	
+	@NotEmpty
+	@Size(max = 40)
 	@Column(name="calle_secundaria")
 	private String calleSecundaria;
 	
+	@NotEmpty
+	@Size(max = 40)
 	@Column(name="nro_casa")
 	private String nroCasa;
 	
@@ -42,16 +50,16 @@ public class Cliente extends Persona implements Serializable {
 		super();
 	}
 
-	public Cliente(Float idCliente) {
+	public Cliente(Integer idCliente) {
 		super();
 		this.idCliente = idCliente;
 	}
 
-	public Float getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(Float idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 

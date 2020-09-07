@@ -9,24 +9,154 @@
         <div class="row">
         <div th:replace="layout :: frgSidebar"></div>
         <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="card">
-		        <h5 class="card-header" th:text="${title}"></h5>
-		        <ul class="list-group list-group-flush">
-			        <li class="list-group-item"><b>Cédula: </b> <span th:text="${cliente.cedula}"></span></li>
-			        <li class="list-group-item"><b>Nombres: </b> <span th:text="${gerente.nombres}"></span></li>
-			        <li class="list-group-item"><b>Apellidos: </b><span th:text="${gerente.apellidos}"></span></li>
-			        <li class="list-group-item"><b>Fecha de nacimiento: </b><span th:text="${gerente.fechaNac()}"></span></li>
-			        <li class="list-group-item"><b>Correo electrónico: </b><span th:text="${gerente.email}"></span></li>
-			        <li class="list-group-item"><b>Teléfono: </b><span th:text="${gerente.telefono}"></span></li>
-			        <li class="list-group-item"><b>Género: </b><span th:text="${gerente.genero}"></span></li>
-			        <li class="list-group-item"><b>Descripción: </b><span th:text="${gerente.descripcion}"></span></li>
-			        <li class="list-group-item"><b>Especialización: </b><span th:text="${gerente.especializacion}"></span></li>
-			    </ul>
-					        
-		    </div>
+        <nav>
+		  <div class="nav nav-tabs bg-primary" id="nav-tab" role="tablist">
+		    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Perfil</a>
+		    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Servicios</a>
+		    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+		  </div>
+		</nav>
+		<div class="tab-content" id="nav-tabContent">
+		  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+				<div class="card">
+			        <h5 class="card-header" th:text="${title}"></h5>
+			        <img style="max-width:200px; margin:auto" th:src="@{/photos/} + ${gerente.imagen}" class="img-fluid rounded"/>
+			        <ul class="list-group list-group-flush">
+				        <li class="list-group-item"><b>Cédula: </b> <span th:text="${gerente.cedula}"></span></li>
+				        <li class="list-group-item"><b>Nombres: </b> <span th:text="${gerente.nombres}"></span></li>
+				        <li class="list-group-item"><b>Apellidos: </b><span th:text="${gerente.apellidos}"></span></li>
+				        <li class="list-group-item"><b>Fecha de nacimiento: </b><span th:text="${gerente.fechaNac()}"></span></li>
+				        <li class="list-group-item"><b>Correo electrónico: </b><span th:text="${gerente.email}"></span></li>
+				        <li class="list-group-item"><b>Teléfono: </b><span th:text="${gerente.telefono}"></span></li>
+				        <li class="list-group-item"><b>Género: </b><span th:text="${gerente.genero}"></span></li>
+				        <li class="list-group-item"><b>Descripción: </b><span th:text="${gerente.descripcion}"></span></li>
+				        <li class="list-group-item"><b>Especialización: </b><span th:text="${gerente.especializacion}"></span></li>
+				    </ul>
+						        
+			    </div>
+			</div>
+		  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				<div class="text-right my-3">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					  	<i class="fa fa-plus" aria-hidden="true"></i>
+					  	Agregar Servicio
+					</button>
+				</div>
+				
+				<table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                        <th>Descripción</th>
+                        <th>Horario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="servicio : ${servicios}">
+                        <td th:text="${servicio.nombre}"></td>
+                        <td th:text="${servicio.imagen}"></td>
+                        <td th:text="${servicio.descripcion}"></td>
+                        <td th:text="${servicio.horario}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" th:href="@{/servicio/update/} + ${servicio.idServicio}">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                            <a class="btn btn-sm btn-info" th:href="@{/servicio/retrieve/} + ${servicio.idServicio}">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <button th:onclick="'eliminar(\'servicio\', '+ ${servicio.idServicio} +')'" class="btn btn-sm btn-danger">
+								    <i class="fa fa-trash" aria-hidden="true"></i>
+								</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+		  </div>
+		  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+		  </div>
+		</div>
+            
         </main>
         </div>
     </div>
+    
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo servicio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+				<form th:action="@{/servicio/save}" id="formServicio" th:object="${servicio}" method="POST">
+                    <div class="form-group row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                                placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
+                        <div class="col-sm-10">
+                            <input id="imagen" type="text" class="form-control" th:field="*{imagen}"
+                                placeholder="Imagen">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+                        <div class="col-sm-10">
+                            <input id="descripcion" type="text" class="form-control" th:field="*{descripcion}"
+                                placeholder="Descripción">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="horario" class="col-sm-2 col-form-label">Horario</label>
+                        <div class="col-sm-10">
+                            <input id="horario" type="text" class="form-control" th:field="*{horario}"
+                                placeholder="Horario">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="callePrincipal" class="col-sm-2 col-form-label">Calle principal</label>
+                        <div class="col-sm-10">
+                            <input id="callePrincipal" type="text" class="form-control" th:field="*{callePrincipal}"
+                                placeholder="Calle principal">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="calleSecundaria" class="col-sm-2 col-form-label">Calle secundaria</label>
+                        <div class="col-sm-10">
+                            <input id="calleSecundaria" type="text" class="form-control" th:field="*{calleSecundaria}"
+                                placeholder="Calle secundaria">
+                        </div>
+                    </div>
+
+                    <input type="hidden" th:field="*{idServicio}" />
+					<input type="hidden" id="gerenteId" name="gerenteId" th:value="${gerente.idGerente}" />
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					
+                </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary"  onclick="crearServicio();">Crear servicio</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <div th:replace="layout :: frgFooter"> </div>
 </body>
 
 </html>

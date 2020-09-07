@@ -5,13 +5,16 @@
 
 <body>
     <nav th:replace="layout :: frgNavbar"></nav>
+    
+    <div>
+    	<img src="https://servipase.com/img/start_header.jpg" class="img-fluid" alt="Inicio"/>
+    </div>
     <div class="container-fluid">
+    
         <div class="row">
-            <div th:replace="layout :: frgSidebar"></div>
-            <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <main class="col-12">
 
                 <h1>Sistema de gestión de reservas</h1>
-                <h3>Seleccione una persona para conocer sus servicios</h3>
 
                 <div class="row">
                     <div th:each="gerente : ${gerentes}" class="div col-12 col-sm-4">
@@ -21,6 +24,61 @@
                                 <h6 class="card-subtitle mb-2 text-muted" th:text="${gerente.especializacion}"></h6>
                                 <p class="card-text" th:text="${gerente.descripcion}"></p>
                                 <a th:href="@{/gerente/} + ${gerente.idGerente} + @{/servicios}"
+                                    class="card-link text-center d-block">Ver servicios</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="div col-12 col-sm-4">
+                        <div class="card">
+                        	<img src="https://picsum.photos/200"/>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                	Jhon Doe
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                	Ingeniero Mecánico
+                                </h6>
+                                <p class="card-text">
+                                Descripción de los servicios
+                                </p>
+                                <a href="#"
+                                    class="card-link text-center d-block">Ver servicios</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div col-12 col-sm-4">
+                        <div class="card">
+                        	<img src="https://picsum.photos/200"/>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                	Jhon Doe
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                	Ingeniero Mecánico
+                                </h6>
+                                <p class="card-text">
+                                Descripción de los servicios
+                                </p>
+                                <a href="#"
+                                    class="card-link text-center d-block">Ver servicios</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div col-12 col-sm-4">
+                        <div class="card">
+                        	<img src="https://picsum.photos/200"/>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                	Jhon Doe
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                	Ingeniero Mecánico
+                                </h6>
+                                <p class="card-text">
+                                Descripción de los servicios
+                                </p>
+                                <a href="#"
                                     class="card-link text-center d-block">Ver servicios</a>
                             </div>
                         </div>

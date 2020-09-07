@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,12 +15,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "servicios")
 public class Servicio implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Transient
+	private int gerenteId;
+	
+	public int getGerenteId() {
+		return gerenteId;
+	}
+
+	public void setGerenteId(int gerenteId) {
+		this.gerenteId = gerenteId;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,24 +46,37 @@ public class Servicio implements Serializable {
 	@ManyToOne
 	private Gerente gerente;
 	
-	@OneToMany(mappedBy = "servicio", fetch = FetchType.LAZY)
+	
+	@OneToMany(mappedBy = "servicio", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	private List<Reservacion> reservaciones;
 	
+	@NotEmpty
+	@Size(max = 70)
 	@Column(name="nombre")
 	private String nombre;
 	
+	@NotEmpty
+	@Size(max = 200)
 	@Column(name="imagen")
 	private String imagen;
 	
+	@NotEmpty
+	@Size(max = 200)
 	@Column(name="descripcion")
 	private String descripcion;
 	
+	@NotEmpty
+	@Size(max = 40)
 	@Column(name="horario")
 	private String horario;
 	
+	@NotEmpty
+	@Size(max = 90)
 	@Column(name="calle_principal")
 	private String callePrincipal;
 	
+	@NotEmpty
+	@Size(max = 90)
 	@Column(name="calle_secundaria")
 	private String calleSecundaria;
 

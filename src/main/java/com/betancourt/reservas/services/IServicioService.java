@@ -2,6 +2,7 @@ package com.betancourt.reservas.services;
 
 import java.util.List;
 
+import com.betancourt.reservas.entities.Reservacion;
 import com.betancourt.reservas.entities.Servicio;
 
 public interface IServicioService {

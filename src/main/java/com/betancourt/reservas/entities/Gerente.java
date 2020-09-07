@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="gerentes")
@@ -23,32 +25,39 @@ public class Gerente extends Persona implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name="pk_gerente")
-	private Float idGerente;
+	private Integer idGerente;
 	
 	
 	@OneToMany(mappedBy = "gerente", fetch = FetchType.LAZY)
 	private List<Servicio> servicios;
 	
+	@NotEmpty
+	@Size(max = 80)
 	@Column(name="especializacion")
 	private String especializacion;
 	
+	@NotEmpty
+	@Size(max = 250)
 	@Column(name="descripcion")
 	private String descripcion;
+	
+	@Column(name = "imagen")
+	private String imagen;
 
 	public Gerente() {
 		super();
 	}
 	
-	public Gerente(Float id) {
+	public Gerente(Integer id) {
 		super();
 		this.idGerente = id;
 	}
 
-	public Float getIdGerente() {
+	public Integer getIdGerente() {
 		return idGerente;
 	}
 
-	public void setIdGerente(Float idGerente) {
+	public void setIdGerente(Integer idGerente) {
 		this.idGerente = idGerente;
 	}
 
@@ -60,6 +69,14 @@ public class Gerente extends Persona implements Serializable {
 		this.servicios = servicios;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	
 	public String getEspecializacion() {
 		return especializacion;
 	}

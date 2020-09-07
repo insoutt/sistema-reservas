@@ -1,7 +1,13 @@
 package com.betancourt.reservas.services;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,6 +29,9 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private IUsuario dao;
+	
+	@PersistenceContext
+	private EntityManager em;
 		
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {		
 		Usuario usuario = dao.findByNombre(username);		
@@ -49,5 +58,14 @@ public class UsuarioService implements UserDetailsService {
 	@Transactional	
 	public List<Usuario> findAll(){		
 		return (List<Usuario>) dao.findAll();
+	}
+	
+	public List<Usuario> findAllGerentes() {		
+		StoredProcedureQuery query = em.createStoredProcedureQuery("obtener_gerentes");
+		query.execute();
+		List<Object[]> datos = query.getResultList();		
+		return datos.stream()
+				.map(r -> new Usuario((Integer)r[0]))
+				.collect(Collectors.toList());		
 	}
 }

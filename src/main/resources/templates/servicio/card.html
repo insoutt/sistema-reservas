@@ -9,7 +9,21 @@
         <div class="row">
         <div th:replace="layout :: frgSidebar"></div>
         <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="card">
+                
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item" role="presentation">
+		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Detalles</a>
+		  </li>
+		  <li class="nav-item" role="presentation">
+		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Reservaciones</a>
+		  </li>
+		  <li class="nav-item" role="presentation">
+		    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+		  </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+			<div class="card">
 		        <h5 class="card-header" th:text="${title}"></h5>
 		        <ul class="list-group list-group-flush">
 			        <li class="list-group-item"><b>Nombre: </b> <span th:text="${servicio.nombre}"></span></li>
@@ -18,13 +32,126 @@
 			        <li class="list-group-item"><b>Horario: </b><span th:text="${servicio.horario}"></span></li>
 			        <li class="list-group-item"><b>Calle principal: </b><span th:text="${servicio.callePrincipal}"></span></li>
 			        <li class="list-group-item"><b>Calle secundaria: </b><span th:text="${servicio.calleSecundaria}"></span></li>
-			    </ul>
-					        
+			    </ul>        
 		    </div>
+</div>
+		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+		  	<div class="text-right my-3">
+		  	<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <i class="fa fa-plus" aria-hidden="true"></i>
+					  	Agregar reservación
+</button>
+		  	</div>
+		          
+		  	
+		  	<table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                        <th>Descripción</th>
+                        <th>Horario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reservacion : ${reservaciones}">
+                        <td th:text="${reservacion.titulo}"></td>
+                        <td th:text="${reservacion.detalles}"></td>
+                        <td th:text="${reservacion.fecha()}"></td>
+                        <td th:text="${reservacion.hora}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" th:href="@{/reservacion/update/} + ${reservacion.idReservacion}">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                            <a class="btn btn-sm btn-info" th:href="@{/reservacion/retrieve/} + ${reservacion.idReservacion}">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+		  
+		  </div>
+		  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+		</div>
+            
         </main>
         </div>
     </div>
     <footer th:replace="layout :: frgFooter"></footer>
+    
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/reservacion/save}" th:object="${reservacion}" method="POST">
+	            <div class="form-group row">
+			        <label for="titulo" class="col-sm-2 col-form-label">Titulo</label>
+			        <div class="col-sm-10">
+			            <input id="titulo" type="text" class="form-control" th:field="*{titulo}" placeholder="Titulo">
+			        </div>
+			    </div>
+			    <div class="form-group row">
+			        <label for="detalles" class="col-sm-2 col-form-label">Detalles</label>
+			        <div class="col-sm-10">
+			            <input id="detalles" type="text" class="form-control" th:field="*{detalles}" placeholder="Imagen">
+			        </div>
+			    </div>
+			    
+			    <div class="form-group row">
+			        <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+			        <div class="col-sm-10">
+			            <input id="fecha" type="date" class="form-control" th:field="*{fecha}" placeholder="Fecha">
+			        </div>
+			    </div>
+			    
+			    <div class="form-group row">
+			        <label for="hora" class="col-sm-2 col-form-label">Hora</label>
+			        <div class="col-sm-10">
+			            <input id="hora" type="text" class="form-control" th:field="*{hora}" placeholder="Hora">
+			        </div>
+			    </div>
+			    
+			    <div class="form-group row">
+                       <label for="gerentes" class="col-sm-2 col-form-label">Clientes</label>
+                       <div class="col-sm-10">
+                           <select class="form-control" th:field=*{cliente.idCliente}>
+                               <option value="">Seleccione un cliente</option>
+                               <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}"
+                                   th:text="${cliente.nombres}"></option>
+                           </select>
+			         </div>
+                   </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12 mb-3 mb-sm-0 text-center">
+                        <input type="submit" class="btn btn-success" value="Guardar" />
+                        <a th:href="@{/reservacion/list}" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </div>
+
+				
+                <input type="hidden" th:field="*{idReservacion}" />
+				<input type="hidden" id="servicioId" name="servicioId" th:value="${servicio.idServicio}" />
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="crearReservacion();">Reservar</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 
 </html>

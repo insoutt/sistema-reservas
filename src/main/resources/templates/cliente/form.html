@@ -16,6 +16,7 @@
                         <div class="col-sm-10">
                             <input id="cedula" type="text" class="form-control" th:field="*{cedula}"
                                 placeholder="Cédula">
+                                <small class="text-danger" th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></small>	
                         </div>
                     </div>
                     <div class="form-group row">
@@ -23,6 +24,7 @@
                         <div class="col-sm-10">
                             <input id="nombres" type="text" class="form-control" th:field="*{nombres}"
                                 placeholder="Nombres">
+                                <small class="text-danger" th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}"></small>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -30,6 +32,7 @@
                         <div class="col-sm-10">
                             <input id="apellidos" type="text" class="form-control" th:field="*{apellidos}"
                                 placeholder="Apellidos">
+                                <small class="text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
                         </div>
                     </div>
 
@@ -38,6 +41,7 @@
                         <div class="col-sm-10">
                             <input id="fechaNacimiento" type="date" class="form-control" th:field="*{fechaNacimiento}"
                                 placeholder="Fecha de nacimiento">
+                                <small class="text-danger" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></small>
                         </div>
                     </div>
 
@@ -46,6 +50,7 @@
                         <div class="col-sm-10">
                             <input id="email" type="email" class="form-control" th:field="*{email}"
                                 placeholder="Correo electrónico">
+                                <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
                         </div>
                     </div>
 
@@ -54,6 +59,7 @@
                         <div class="col-sm-10">
                             <input id="telefono" type="text" class="form-control" th:field="*{telefono}"
                                 placeholder="Teléfono">
+                                <small class="text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
                         </div>
                     </div>
 
@@ -62,6 +68,7 @@
                         <div class="col-sm-10">
                             <input id="genero" type="text" class="form-control" th:field="*{genero}"
                                 placeholder="Genero">
+                                <small class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></small>
                         </div>
                     </div>
 
@@ -70,6 +77,7 @@
                         <div class="col-sm-10">
                             <input id="callePrincipal" type="text" class="form-control" th:field="*{callePrincipal}"
                                 placeholder="Calle principal">
+                                <small class="text-danger" th:if="${#fields.hasErrors('callePrincipal')}" th:errors="*{callePrincipal}"></small>
                         </div>
                     </div>
 
@@ -78,6 +86,7 @@
                         <div class="col-sm-10">
                             <input id="calleSecundaria" type="text" class="form-control" th:field="*{calleSecundaria}"
                                 placeholder="Calle secundaria">
+                               <small class="text-danger" th:if="${#fields.hasErrors('calleSecundaria')}" th:errors="*{calleSecundaria}"></small>
                         </div>
                     </div>
 
@@ -86,6 +95,8 @@
                         <div class="col-sm-10">
                             <input id="nroCasa" type="text" class="form-control" th:field="*{nroCasa}"
                                 placeholder="Número de casa">
+                                
+                                <small class="text-danger" th:if="${#fields.hasErrors('nroCasa')}" th:errors="*{nroCasa}"></small>
                         </div>
                     </div>
 

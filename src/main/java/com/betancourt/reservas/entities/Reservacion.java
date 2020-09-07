@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -51,6 +52,17 @@ public class Reservacion implements Serializable {
 	
 	@Column(name="hora")
 	private String hora;
+	
+	@Transient
+	private int servicioId;
+	
+	public int getServicioId() {
+		return servicioId;
+	}
+
+	public void setGerenteId(int servicioId) {
+		this.servicioId = servicioId;
+	}
 
 	public Reservacion() {
 		super();
