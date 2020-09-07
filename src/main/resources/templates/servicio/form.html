@@ -18,13 +18,6 @@
                                 placeholder="Nombre">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
-                        <div class="col-sm-10">
-                            <input id="imagen" type="text" class="form-control" th:field="*{imagen}"
-                                placeholder="Imagen">
-                        </div>
-                    </div>
 
                     <div class="form-group row">
                         <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
@@ -33,15 +26,6 @@
                                 placeholder="Descripción">
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="horario" class="col-sm-2 col-form-label">Horario</label>
-                        <div class="col-sm-10">
-                            <input id="horario" type="text" class="form-control" th:field="*{horario}"
-                                placeholder="Horario">
-                        </div>
-                    </div>
-
                     <div class="form-group row">
                         <label for="callePrincipal" class="col-sm-2 col-form-label">Calle principal</label>
                         <div class="col-sm-10">
@@ -59,26 +43,15 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="gerentes" class="col-sm-2 col-form-label">Gerente</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" th:field=*{gerente.idGerente}>
-                                <option value="">Seleccione un gerente</option>
-                                <option th:each="gerente : ${gerentes}" th:value="${gerente.idGerente}"
-                                    th:text="${gerente.nombres}"></option>
-                            </select>
-				         </div>
-                    </div>
-
-
-                    <div class="form-group row">
                         <div class="col-sm-12 mb-3 mb-sm-0 text-center">
                             <input type="submit" class="btn btn-success" value="Guardar" />
-                            <a th:href="@{/servicio/list}" class="btn btn-danger">Cancelar</a>
+                            <a th:href="@{/servicio/retrieve/} + ${servicio.idServicio}" class="btn btn-danger">Cancelar</a>
                         </div>
                     </div>
 
 
                     <input type="hidden" th:field="*{idServicio}" />
+                    <input type="hidden" id="gerenteId" name="gerenteId" th:value="${servicio.gerente.idGerente}"/>
 
                 </form>
             </main>

@@ -6,10 +6,10 @@
 	height: 100%;
 }
 
-.nav-link {
+.sidebar-sticky .nav-link {
 	color: white;
 }
 
-.nav-link:hover {
+.sidebar-sticky .nav-link:hover {
     color: #d5d5d5;
 }

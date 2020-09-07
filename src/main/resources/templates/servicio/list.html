@@ -17,18 +17,14 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Imagen</th>
                         <th>Descripción</th>
-                        <th>Horario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="servicio : ${servicios}">
                         <td th:text="${servicio.nombre}"></td>
-                        <td th:text="${servicio.imagen}"></td>
                         <td th:text="${servicio.descripcion}"></td>
-                        <td th:text="${servicio.horario}"></td>
                         <td>
                             <a class="btn btn-sm btn-warning" th:href="@{/servicio/update/} + ${servicio.idServicio}">
                                 <i class="fa fa-pencil-square-o"></i>

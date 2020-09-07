@@ -10,18 +10,19 @@
         <div th:replace="layout :: frgSidebar"></div>
         <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
         <nav>
-		  <div class="nav nav-tabs bg-primary" id="nav-tab" role="tablist">
+		  <div class="nav nav-tabs" id="nav-tab" role="tablist">
 		    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Perfil</a>
 		    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Servicios</a>
-		    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
 		  </div>
 		</nav>
 		<div class="tab-content" id="nav-tabContent">
 		  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 				<div class="card">
-			        <h5 class="card-header" th:text="${title}"></h5>
-			        <img style="max-width:200px; margin:auto" th:src="@{/photos/} + ${gerente.imagen}" class="img-fluid rounded"/>
+			        <h5 class="card-header text-center">
+			        <img style="max-width:200px;" th:src="@{/photos/} + ${gerente.imagen}" class="img-fluid border border-secondary rounded"/>
+			        </h5>
 			        <ul class="list-group list-group-flush">
+			     
 				        <li class="list-group-item"><b>Cédula: </b> <span th:text="${gerente.cedula}"></span></li>
 				        <li class="list-group-item"><b>Nombres: </b> <span th:text="${gerente.nombres}"></span></li>
 				        <li class="list-group-item"><b>Apellidos: </b><span th:text="${gerente.apellidos}"></span></li>
@@ -47,18 +48,14 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Imagen</th>
                         <th>Descripción</th>
-                        <th>Horario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="servicio : ${servicios}">
                         <td th:text="${servicio.nombre}"></td>
-                        <td th:text="${servicio.imagen}"></td>
                         <td th:text="${servicio.descripcion}"></td>
-                        <td th:text="${servicio.horario}"></td>
                         <td>
                             <a class="btn btn-sm btn-warning" th:href="@{/servicio/update/} + ${servicio.idServicio}">
                                 <i class="fa fa-pencil-square-o"></i>
@@ -103,6 +100,7 @@
                                 placeholder="Nombre">
                         </div>
                     </div>
+                    <!-- 
                     <div class="form-group row">
                         <label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
                         <div class="col-sm-10">
@@ -110,7 +108,8 @@
                                 placeholder="Imagen">
                         </div>
                     </div>
-
+                     -->
+                     
                     <div class="form-group row">
                         <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
                         <div class="col-sm-10">
@@ -119,6 +118,7 @@
                         </div>
                     </div>
 
+<!-- 
                     <div class="form-group row">
                         <label for="horario" class="col-sm-2 col-form-label">Horario</label>
                         <div class="col-sm-10">
@@ -126,7 +126,7 @@
                                 placeholder="Horario">
                         </div>
                     </div>
-
+ -->
                     <div class="form-group row">
                         <label for="callePrincipal" class="col-sm-2 col-form-label">Calle principal</label>
                         <div class="col-sm-10">
@@ -151,7 +151,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary"  onclick="crearServicio();">Crear servicio</button>
+        <button type="button" class="btn btn-primary"  onclick="crearServicio('creado');">Crear servicio</button>
       </div>
     </div>
   </div>

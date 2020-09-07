@@ -10,10 +10,8 @@
         <div th:replace="layout :: frgSidebar"></div>
         <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="card">
-		        <h5 class="card-header" th:text="${title}"></h5>
+		        <h5 class="card-header">Perfil de: <span th:text="${cliente.nombres}"></span> <span th:text="${cliente.apellidos}"></span></h5>
 		        <ul class="list-group list-group-flush">
-			        <li class="list-group-item"><b>Nombres: </b> <span th:text="${cliente.nombres}"></span></li>
-			        <li class="list-group-item"><b>Apellidos: </b><span th:text="${cliente.apellidos}"></span></li>
 			        <li class="list-group-item"><b>Fecha de nacimiento: </b><span th:text="${cliente.fechaNac()}"></span></li>
 			        <li class="list-group-item"><b>Correo electrónico: </b><span th:text="${cliente.email}"></span></li>
 			        <li class="list-group-item"><b>Teléfono: </b><span th:text="${cliente.telefono}"></span></li>
@@ -27,6 +25,7 @@
         </main>
         </div>
     </div>
+    <footer th:replace="layout :: frgFooter"></footer>
 </body>
 
 </html>

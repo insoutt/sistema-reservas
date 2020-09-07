@@ -12,11 +12,35 @@
             <div class="card">
 		        <h5 class="card-header" th:text="${title}"></h5>
 		        <ul class="list-group list-group-flush">
+			        <li class="list-group-item"><b>Cliente: </b> 
+			        	<a th:href="@{/cliente/retrieve/} + ${reservacion.cliente.idCliente}" 
+			        		th:text="${reservacion.cliente.nombres}"></a>
+			        	
+			        </li>
+			        <li class="list-group-item"><b>Servicio: </b> 
+			        	<a th:href="@{/servicio/retrieve/} + ${reservacion.servicio.idServicio}" 
+			        		th:text="${reservacion.servicio.nombre}"></a>
+			        </li>
 			        <li class="list-group-item"><b>Título: </b> <span th:text="${reservacion.titulo}"></span></li>
+			        <li class="list-group-item"><b>Estado: </b>
+			         	<span th:if="${reservacion.estado == 'Atendido'}" class="badge badge-success">Atendido</span>
+			         	<span th:if="${reservacion.estado == 'Cancelar'}" class="badge badge-danger">Cancelado</span>
+			         	<span th:if="${reservacion.estado == 'Pendiente'}" class="badge badge-warning">Pendiente</span>
+			         </li>
 			        <li class="list-group-item"><b>Detalles: </b><span th:text="${reservacion.detalles}"></span></li>
 			        <li class="list-group-item"><b>Fecha: </b><span th:text="${reservacion.fecha()}"></span></li>
 			        <li class="list-group-item"><b>Hora: </b><span th:text="${reservacion.hora}"></span></li>
-			    </ul>     
+			    </ul>   
+			    <div th:if="${reservacion.estado == 'Pendiente'}" class="card-footer">
+			    	<a class="btn btn-sm btn-success" th:href="@{/reservacion/attend/} + ${reservacion.idReservacion}">
+                    	<i class="fa fa-check-circle"></i>
+                    	Atender reservación
+                	</a>
+			    	<a class="btn btn-sm btn-danger" th:href="@{/reservacion/cancel/} + ${reservacion.idReservacion}">
+                    	<i class="fa fa-times"></i>
+                    	Cancelar reservación
+                	</a>
+			    </div>  
 		    </div>
         </main>
         </div>

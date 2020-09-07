@@ -121,4 +121,10 @@ abstract class Persona {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
 		return sdf.format(fechaNacimiento.getTime());
 	}
+
+	@Override
+	public String toString() {
+		return nombres + " " + apellidos;
+	}
+	
 }

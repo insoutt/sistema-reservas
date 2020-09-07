@@ -3,24 +3,12 @@ $('#myTab a').on('click', function (e) {
   $(this).tab('show')
 })
 
-function crearServicio() {
-    ajax('POST', '/servicio/save', '#formServicio', function() {
-    	Swal.fire({
-			  title: 'Servicio creado',
-			  text: "El servicio ha sido creado correctamente.",
-			  icon: 'success',
-			  confirmButtonText: 'Aceptar'
-			}).then((result) => {
-			  window.location.reload();
-			})
-    }, function() {
-    	Swal.fire({
-			  title: 'Servicio NO creado',
-			  text: "El servicio no se ha creado, verifique los datos del formulario sean correctos",
-			  icon: 'error',
-			  confirmButtonText: 'Ok'
-			})
-    });
+function crearServicio(action) {
+    ajaxCreate('POST', '/servicio/create', '#formServicio', 'Servicio', action);
+}
+
+function crearReservacion(action) {
+    ajaxCreate('POST', '/reservacion/save', '#formReservacion', 'Reservación', action);
 }
 
 function eliminar(modelo, id) {
@@ -56,8 +44,9 @@ function eliminar(modelo, id) {
 }
 
 
-function ajax(method, url, form, correcto, incorrecto) {
-	var dataForm = objectifyForm($("#formServicio").serializeArray());	
+function ajaxCreate(method, url, form, name, action) {
+	var dataForm = objectifyForm($(form).serializeArray());	
+	console.log('Enviando formulario', $(form), dataForm)
 	var requestBody = JSON.stringify(dataForm);
 	$.ajax({
 		url : url,
@@ -66,16 +55,48 @@ function ajax(method, url, form, correcto, incorrecto) {
 		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},		
 		data : requestBody,
 		success : function(response){
-			if(typeof correcto === 'function') {
-				correcto()
-			}
+			Swal.fire({
+				  title: name + ' ' + action,
+				  text: name.toLowerCase() +" ha sido "+ action  +" correctamente.",
+				  icon: 'success',
+				  confirmButtonText: 'Aceptar'
+				}).then((result) => {
+				  window.location.reload();
+				})
 		},
 		error : function(err){
-			if(typeof incorrecto === 'function') {
-				incorrecto()
-			}
+			Swal.fire({
+				  title: name + ' NO ' + action,
+				  text: "Verifique que los datos del formulario sean correctos",
+				  icon: 'error',
+				  confirmButtonText: 'Ok'
+				})
 		}		
 	});
+}
+
+
+
+function ajax(method, url, form, correcto, incorrecto) {
+    var dataForm = objectifyForm($("#formServicio").serializeArray());
+    var requestBody = JSON.stringify(dataForm);
+    $.ajax({
+        url: url,
+        method: method,
+        contentType: "application/json",
+        headers: { "X-CSRF-TOKEN": $("input[name='_csrf']").val() },
+        data: requestBody,
+        success: function (response) {
+            if (typeof correcto === 'function') {
+                correcto()
+            }
+        },
+        error: function (err) {
+            if (typeof incorrecto === 'function') {
+                incorrecto()
+            }
+        }
+    });
 }
 
 

@@ -93,15 +93,14 @@
                     <div class="form-group row">
                         <label for="photo" class="col-sm-2 col-form-label">Foto</label>
                         <div class="col-sm-10">
-                            <input type="file" name="photo" id="photo" class="form-control">
-                            
+                            <input type="file" name="photo" id="photo" class="form-control"> 
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-12 mb-3 mb-sm-0 text-center">
                             <input type="submit" class="btn btn-success" value="Guardar" />
-                            <a th:href="@{/gerente/list}" class="btn btn-danger">Cancelar</a>
+                            <a th:href="@{/gerente/retrieve/} + ${gerente.idGerente}" class="btn btn-danger">Cancelar</a>
                         </div>
                     </div>
 
@@ -112,6 +111,7 @@
             </main>
         </div>
     </div>
+    <footer th:replace="layout :: frgFooter"></footer>
 </body>
 
 </html>

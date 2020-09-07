@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,9 +41,13 @@ public class Reservacion implements Serializable {
 	@ManyToOne
 	private Servicio servicio;
 
+	@NotEmpty
+	@Size(max = 70)
 	@Column(name="titulo")
 	private String titulo;
 	
+	@NotEmpty
+	@Size(max = 70)
 	@Column(name="detalles")
 	private String detalles;
 	
@@ -50,12 +56,38 @@ public class Reservacion implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private Calendar fecha;
 	
+	@NotEmpty
+	@Size(max = 70)
 	@Column(name="hora")
 	private String hora;
 	
+	@NotEmpty
+	@Size(max = 70)
+	@Column(name="estado")
+	private String estado;
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	@Transient
 	private int servicioId;
 	
+	@Transient
+	private int clienteId;
+	
+	public int getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(int clienteId) {
+		this.clienteId = clienteId;
+	}
+
 	public int getServicioId() {
 		return servicioId;
 	}

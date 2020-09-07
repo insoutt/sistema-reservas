@@ -36,15 +36,15 @@
                             <td th:text="${gerente.fechaNac()}"></td>
                             <td th:text="${gerente.especializacion}"></td>
                             <td>
-	                            <button class="btn btn-sm btn-primary">
-								    <i class="fa fa-cog" aria-hidden="true"></i>
-								</button>
                                 <a class="btn btn-sm btn-warning" th:href="@{/gerente/update/} + ${gerente.idGerente}">
                                     <i class="fa fa-pencil-square-o"></i>
                                 </a>
                                 <a class="btn btn-sm btn-info" th:href="@{/gerente/retrieve/} + ${gerente.idGerente}">
                                     <i class="fa fa-eye"></i>
                                 </a>
+                                <button th:onclick="'eliminar(\'gerente\', '+ ${gerente.idGerente} +')'" class="btn btn-sm btn-danger">
+								    <i class="fa fa-trash" aria-hidden="true"></i>
+								</button>
                             </td>
                         </tr>
                     </tbody>
@@ -52,6 +52,7 @@
             </main>
         </div>
     </div>
+    <div th:replace="layout :: frgFooter"> </div>
 </body>
 
 </html>

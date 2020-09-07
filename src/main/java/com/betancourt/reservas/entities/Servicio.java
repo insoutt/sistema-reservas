@@ -54,21 +54,12 @@ public class Servicio implements Serializable {
 	@Size(max = 70)
 	@Column(name="nombre")
 	private String nombre;
-	
-	@NotEmpty
-	@Size(max = 200)
-	@Column(name="imagen")
-	private String imagen;
+
 	
 	@NotEmpty
 	@Size(max = 200)
 	@Column(name="descripcion")
 	private String descripcion;
-	
-	@NotEmpty
-	@Size(max = 40)
-	@Column(name="horario")
-	private String horario;
 	
 	@NotEmpty
 	@Size(max = 90)
@@ -122,28 +113,12 @@ public class Servicio implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public String getHorario() {
-		return horario;
-	}
-
-	public void setHorario(String horario) {
-		this.horario = horario;
 	}
 
 	public String getCallePrincipal() {
