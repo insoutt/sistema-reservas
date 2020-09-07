@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.betancourt.reservas.dao.IGerente;
+import com.betancourt.reservas.entities.Cliente;
 import com.betancourt.reservas.entities.Gerente;
 
 @Service
@@ -35,5 +36,10 @@ public class GerenteService implements IGerenteService {
 	@Override
 	public List<Gerente> findAll() {
 		return (List<Gerente>) dao.findAll();
+	}
+	
+	@Transactional
+	public Gerente findByEmail(String email) {
+		return dao.findByEmail(email);
 	}
 }

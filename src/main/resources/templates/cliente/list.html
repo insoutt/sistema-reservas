@@ -36,6 +36,9 @@
                                 <a class="btn btn-sm btn-info" th:href="@{/cliente/retrieve/} + ${cliente.idCliente}">
                                     <i class="fa fa-eye"></i>
                                 </a>
+                                <button th:onclick="'eliminar(\'cliente\', '+ ${cliente.idCliente} +')'" class="btn btn-sm btn-danger">
+								    <i class="fa fa-trash" aria-hidden="true"></i>
+								</button>
                             </td>
                         </tr>
                     </tbody>

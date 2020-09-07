@@ -99,6 +99,26 @@ function ajax(method, url, form, correcto, incorrecto) {
     });
 }
 
+function ajaxReport(url, correcto, incorrecto) {
+    $.ajax({
+        url: url,
+        method: 'GET',
+        contentType: "application/json",
+        success: function (response) {
+            if (typeof correcto === 'function') {
+                correcto(response)
+            }
+        },
+        error: function (err) {
+            if (typeof incorrecto === 'function') {
+                incorrecto(err)
+            }
+        }
+    });
+}
+
+
+
 
 function objectifyForm(formArray) {
 	var returnArray = {};
@@ -107,3 +127,104 @@ function objectifyForm(formArray) {
 	}
 	return returnArray;
 }
+
+
+function chart1() {
+
+	ajaxReport('/reservacion/reporte-reservas-por-servicio', (response) => {
+		console.log('res', response);
+		
+		const labels = response.map((data) => data.servicio);
+		const data = response.map((data) => data.total);
+		const colors = response.map((data) => random_rgba(1));
+		const bgColors = response.map((data) => random_rgba(0.2));
+		
+		console.log('res2', labels, data);
+		
+		var ctx = document.getElementById('chart1');
+		ctx.height= 150;
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    responsive: true,
+		    data: {
+		        labels,
+		        datasets: [{
+		            label: 'Reservaciones por servicio',
+		            data,
+		            backgroundColor: bgColors,
+		            borderColor: colors,
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		    	maintainAspectRatio: true,
+		        scales: {
+		            yAxes: [{
+		            	stacked: true,
+		                ticks: {
+		                    beginAtZero: true
+		                }
+		            }]
+		        },
+		        
+		    }
+		});
+		
+	});
+}
+
+function chart2() {
+
+	ajaxReport('/reservacion/reporte-reservas-pendientes', (response) => {
+		console.log('res', response);
+		
+		const labels = response.map((data) => data.servicio);
+		const data = response.map((data) => data.total);
+		const colors = response.map((data) => random_rgba(1));
+		const bgColors = response.map((data) => random_rgba(0.2));
+		
+		console.log('res2', labels, data, colors);
+		
+		var ctx = document.getElementById('chart2');
+		ctx.height= 150;
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    responsive: true,
+		    data: {
+		        labels,
+		        datasets: [{
+		            label: 'Reservaciones Pendientes',
+		            data,
+		            backgroundColor: bgColors,
+		            borderColor: colors,
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		            	stacked: true,
+		                ticks: {
+		                    beginAtZero: true
+		                }
+		            }]
+		        },
+		        
+		    }
+		});
+		
+	});
+}
+
+function random_rgba(opacity) {
+    var o = Math.round, r = Math.random, s = 255;
+    console.log('color', 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + opacity + ')')
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + opacity + ')';
+}
+
+
+$(document).ready(() => {
+	chart1();
+		chart2();
+				
+})

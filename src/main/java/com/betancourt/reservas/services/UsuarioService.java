@@ -1,6 +1,5 @@
 package com.betancourt.reservas.services;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +11,6 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.betancourt.reservas.dao.IUsuario;
 import com.betancourt.reservas.entities.Rol;
+import com.betancourt.reservas.entities.User;
 import com.betancourt.reservas.entities.Usuario;
 
 
@@ -47,7 +46,7 @@ public class UsuarioService implements UserDetailsService {
 		if(roles.isEmpty()) {
 			throw new UsernameNotFoundException("Usuario " + username + " no tiene roles asignados");
 		}			
-		return new User(usuario.getNombre(), usuario.getPassword(), usuario.getHabilitado(), true, true, true, roles);		
+		return new User(usuario, usuario.getNombre(), usuario.getPassword(), usuario.getHabilitado(), true, true, true, roles);		
 	}
 	
 	@Transactional

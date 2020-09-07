@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -42,6 +43,14 @@ private static final long serialVersionUID = 1L;
 	@Size(min=8)
 	private String password;
 	
+	@Transient
+	private String rol;
+	
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
 	@Column(name="habilitado")
 	private boolean habilitado;
 

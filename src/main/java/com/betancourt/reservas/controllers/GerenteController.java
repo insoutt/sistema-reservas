@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +22,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.betancourt.reservas.dao.IUsuario;
+import com.betancourt.reservas.entities.Cliente;
 import com.betancourt.reservas.entities.Gerente;
+import com.betancourt.reservas.entities.Reservacion;
 import com.betancourt.reservas.entities.Rol;
 import com.betancourt.reservas.entities.Servicio;
 import com.betancourt.reservas.entities.Usuario;
+import com.betancourt.reservas.services.IClienteService;
 import com.betancourt.reservas.services.IGerenteService;
 import com.betancourt.reservas.services.UsuarioService;
 
@@ -32,8 +37,15 @@ import com.betancourt.reservas.services.UsuarioService;
 @Controller
 @RequestMapping(value="/gerente")
 public class GerenteController {
+	
+	@Autowired
+	private IUsuario daoUsuario;
+	
 	@Autowired
 	private IGerenteService srvGerente;
+	
+	@Autowired
+	private IClienteService srvCliente;
 	
 	@Autowired
 	private UsuarioService srvUsuario;
@@ -83,8 +95,6 @@ public class GerenteController {
 				}
 			}		
 			
-			srvGerente.save(gerente);
-			
 			// Crear usuario
 			Usuario usuario = new Usuario();
 			String pass = gerente.getPassword();
@@ -101,6 +111,7 @@ public class GerenteController {
 			srvUsuario.save(usuario);
 			// Fin crear usuario
 			
+			srvGerente.save(gerente);
 			status.setComplete();
 			flash.addFlashAttribute("success", message);
 		} catch (Exception ex) {
@@ -148,10 +159,17 @@ public class GerenteController {
 		return "gerente/list";
 	}
 	
-	@GetMapping(value="/{id}/servicios")
-	public String services(@PathVariable(value="id") Integer id, Model model) {
+	@GetMapping(value="/servicios/{id}")
+	public String services(@PathVariable(value="id") Integer id, Model model, Authentication authentication) {
+		Usuario usuario = daoUsuario.findByNombre(authentication.getName());
+		Cliente cliente = srvCliente.findByEmail(usuario.getEmail());
+		
+		model.addAttribute("cliente", cliente);
+		
 		Gerente gerente = srvGerente.findById(id);
 		model.addAttribute("gerente", gerente);
+		Reservacion reservacion = new Reservacion();
+		model.addAttribute("reservacion", reservacion);
 		
 		List<Servicio> servicios = gerente.getServicios(); 
 		model.addAttribute("servicios", servicios);

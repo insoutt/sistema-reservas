@@ -7,14 +7,17 @@
     <nav th:replace="layout :: frgNavbar"></nav>
     
     <div>
-    	<img src="https://servipase.com/img/start_header.jpg" class="img-fluid" alt="Inicio"/>
+    <div style="
+    background: url('https://servipase.com/img/start_header.jpg');
+    height: 250px;
+    width: 100%;     background-size: cover;"></div>
     </div>
     <div class="container-fluid">
     
         <div class="row">
             <main class="col-12">
 
-                <h1>Sistema de gestión de reservas</h1>
+                <h1>Realiza tu reservación</h1>
 
                 <div class="row">
                     <div th:each="gerente : ${gerentes}" class="div col-12 col-sm-4">
@@ -23,66 +26,12 @@
                                 <h5 class="card-title" th:text="${gerente.nombres}"></h5>
                                 <h6 class="card-subtitle mb-2 text-muted" th:text="${gerente.especializacion}"></h6>
                                 <p class="card-text" th:text="${gerente.descripcion}"></p>
-                                <a th:href="@{/gerente/} + ${gerente.idGerente} + @{/servicios}"
+                                <a th:href="@{/gerente/servicios/} + ${gerente.idGerente}"
                                     class="card-link text-center d-block">Ver servicios</a>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="div col-12 col-sm-4">
-                        <div class="card">
-                        	<img src="https://picsum.photos/200"/>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                	Jhon Doe
-                                </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                	Ingeniero Mecánico
-                                </h6>
-                                <p class="card-text">
-                                Descripción de los servicios
-                                </p>
-                                <a href="#"
-                                    class="card-link text-center d-block">Ver servicios</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div col-12 col-sm-4">
-                        <div class="card">
-                        	<img src="https://picsum.photos/200"/>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                	Jhon Doe
-                                </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                	Ingeniero Mecánico
-                                </h6>
-                                <p class="card-text">
-                                Descripción de los servicios
-                                </p>
-                                <a href="#"
-                                    class="card-link text-center d-block">Ver servicios</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div col-12 col-sm-4">
-                        <div class="card">
-                        	<img src="https://picsum.photos/200"/>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                	Jhon Doe
-                                </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                	Ingeniero Mecánico
-                                </h6>
-                                <p class="card-text">
-                                Descripción de los servicios
-                                </p>
-                                <a href="#"
-                                    class="card-link text-center d-block">Ver servicios</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </main>
         </div>

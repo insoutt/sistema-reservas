@@ -51,7 +51,7 @@ public class Reservacion implements Serializable {
 	@Column(name="detalles")
 	private String detalles;
 	
-	@Column(name="fecha_nacimiento")
+	@Column(name="fecha")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private Calendar fecha;

@@ -9,7 +9,16 @@
         <div class="row">
         <div th:replace="layout :: frgSidebar"></div>
         <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="card">
+        
+        <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Perfil</a>
+    <a sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')" class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Reservaciones</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+	<div class="card">
 		        <h5 class="card-header">Perfil de: <span th:text="${cliente.nombres}"></span> <span th:text="${cliente.apellidos}"></span></h5>
 		        <ul class="list-group list-group-flush">
 			        <li class="list-group-item"><b>Fecha de nacimiento: </b><span th:text="${cliente.fechaNac()}"></span></li>
@@ -22,6 +31,45 @@
 			    </ul>
 					        
 		    </div>
+</div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+	<table class="table table-hover">
+                <thead>
+                    <tr>
+	                    <th>Cliente</th>
+                        <th>Reservación</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reservacion : ${reservaciones}">
+                    	<td>
+                    	<a th:href="@{/cliente/retrieve/} + ${reservacion.cliente.idCliente}" 
+			        		th:text="${reservacion.cliente.nombres}"></a>
+                    	</td>
+                        <td th:text="${reservacion.titulo}"></td>
+                        <td th:text="${reservacion.detalles}"></td>
+                        <td th:text="${reservacion.fecha()}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" th:href="@{/reservacion/update/} + ${reservacion.idReservacion}">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                            <a class="btn btn-sm btn-info" th:href="@{/reservacion/retrieve/} + ${reservacion.idReservacion}">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <button th:onclick="'eliminar(\'reservacion\', '+ ${reservacion.idReservacion} +')'" class="btn btn-sm btn-danger">
+								    <i class="fa fa-trash" aria-hidden="true"></i>
+								</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+</div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+</div>
+            
         </main>
         </div>
     </div>

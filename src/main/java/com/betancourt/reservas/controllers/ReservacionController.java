@@ -2,10 +2,12 @@ package com.betancourt.reservas.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +25,7 @@ import com.betancourt.reservas.entities.Cliente;
 import com.betancourt.reservas.entities.Gerente;
 import com.betancourt.reservas.entities.Reservacion;
 import com.betancourt.reservas.entities.Servicio;
+import com.betancourt.reservas.reporting.RptReservacionesServicio;
 import com.betancourt.reservas.services.IClienteService;
 import com.betancourt.reservas.services.IReservacionService;
 import com.betancourt.reservas.services.IServicioService;
@@ -50,7 +54,7 @@ public class ReservacionController {
 
 	
 	@PostMapping(value="/save")
-	public String save(@RequestBody @Valid Reservacion reservacion, Model model) {
+	public String save(@RequestBody @Valid Reservacion reservacion, Model model, HttpServletRequest request) {
 		
 		try {
 			Servicio servicio = srvServicio.findById(reservacion.getServicioId());
@@ -58,6 +62,9 @@ public class ReservacionController {
 			reservacion.setCliente(cliente);
 			reservacion.setServicio(servicio);
 			srvReservacion.save(reservacion);
+			if(request.isUserInRole("USER")) {
+				return "redirect:/";
+			}
 			return "redirect:/reservacion/list";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,5 +125,25 @@ public class ReservacionController {
 		model.addAttribute("title", "Listado de reservaciones");
 		model.addAttribute("reservaciones", reservaciones);
 		return "reservacion/list";
+	}
+	
+	@GetMapping(value = "/reporte-reservas-por-servicio", produces="application/json")
+	public @ResponseBody List<RptReservacionesServicio> rptReservacionesServicios(Model model) {				
+		try {			
+			return this.srvReservacion.rptReservacionesServicio();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}		
+	}
+	
+	@GetMapping(value = "/reporte-reservas-pendientes", produces="application/json")
+	public @ResponseBody List<RptReservacionesServicio> rptReservacionesPendientes(Model model) {				
+		try {			
+			return this.srvReservacion.rptReservacionesEstado("Pendiente");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}		
 	}
 }

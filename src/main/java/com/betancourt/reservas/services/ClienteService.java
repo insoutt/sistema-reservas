@@ -25,6 +25,12 @@ public class ClienteService implements IClienteService {
 	public Cliente findById(Integer id) {
 		return dao.findById(id).get();
 	}
+	
+	@Override
+	@Transactional
+	public Cliente findByEmail(String email) {
+		return dao.findByEmail(email);
+	}
 
 	@Override
 	@Transactional

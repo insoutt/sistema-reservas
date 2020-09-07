@@ -16,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.betancourt.reservas.entities.Cliente;
+import com.betancourt.reservas.entities.Reservacion;
 import com.betancourt.reservas.entities.Rol;
 import com.betancourt.reservas.entities.Usuario;
 import com.betancourt.reservas.services.IClienteService;
@@ -68,7 +69,7 @@ public class ClienteController {
 			usuario.setEmail(cliente.getEmail());
 			usuario.setNombres(cliente.getNombres());
 			usuario.setTelefono(cliente.getTelefono());
-			usuario.setApellidos(cliente.getTelefono());
+			usuario.setApellidos(cliente.getApellidos());
 			usuario.setCedula(cliente.getCedula());
 			usuario.setNombre(cliente.getNombre());
 			usuario.setPassword(encoder.encode(pass));			
@@ -91,7 +92,9 @@ public class ClienteController {
 	@GetMapping(value="/retrieve/{id}")
 	public String retrieve(@PathVariable(value="id") Integer id, Model model) {
 		Cliente cliente = srvCliente.findById(id);
+		List<Reservacion> reservaciones = cliente.getReservaciones();
 		model.addAttribute("cliente", cliente);
+		model.addAttribute("reservaciones", reservaciones);
 		model.addAttribute("title", "Ver cliente");
 		return "cliente/card";
 	}
@@ -105,7 +108,7 @@ public class ClienteController {
 		return "cliente/form";
 	}
 	
-	@GetMapping(value="/delete/{id}")
+	@PostMapping(value="/delete/{id}")
 	public String delete(@PathVariable(value="id") Integer id, Model model) {
 		srvCliente.delete(id);
 		return "redirect:/cliente/list";

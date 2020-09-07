@@ -75,8 +75,12 @@
                     <div class="form-group row">
                         <label for="genero" class="col-sm-2 col-form-label">Genero</label>
                         <div class="col-sm-10">
-                            <input id="genero" type="text" class="form-control" th:field="*{genero}"
-                                placeholder="Genero">
+                        <select name="genero" id="genero" class="form-control">
+				            <option value="">Seleccione</option>
+				            <option  value="Masculino">Masculino</option>
+				            <option value="Femenino">Femenino</option>
+				            <option value="Otro">Otro</option>
+				        </select>
                                 <small class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></small>
                         </div>
                     </div>
