@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.betancourt.reservas.entities.Cliente;
+import com.betancourt.reservas.entities.Gerente;
 import com.betancourt.reservas.entities.Rol;
 import com.betancourt.reservas.entities.Usuario;
 import com.betancourt.reservas.services.UsuarioService;
@@ -31,6 +33,22 @@ public class UsuarioController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("title", "ServiPase - Crear cuenta");				
 		return "usuario/form";
+	}
+	
+	@GetMapping(value="/cliente")
+	public String registroCliente(Model model) {	
+		Cliente cliente = new Cliente();
+		model.addAttribute("cliente", cliente);
+		model.addAttribute("title", "ServiPase - Crear cuenta");				
+		return "cliente/form";
+	}
+	
+	@GetMapping(value="/gerente")
+	public String registroGerente(Model model) {	
+		Gerente gerente = new Gerente();
+		model.addAttribute("gerente", gerente);
+		model.addAttribute("title", "ServiPase - Crear cuenta para ofrecer servicios");				
+		return "gerente/form";
 	}
 	
 	@PostMapping(value="/save")

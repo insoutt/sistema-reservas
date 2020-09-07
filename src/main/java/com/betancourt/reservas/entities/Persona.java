@@ -95,8 +95,8 @@ abstract class Persona {
 		return email;
 	}
 
-	public void setEmail(String correoElectronico) {
-		this.email = correoElectronico;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getTelefono() {

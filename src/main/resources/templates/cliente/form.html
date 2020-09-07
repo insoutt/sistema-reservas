@@ -35,6 +35,14 @@
                                 <small class="text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="nombres" class="col-sm-2 col-form-label">Nombre de usuario</label>
+                        <div class="col-sm-10">
+                            <input id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                                placeholder="Nombre de usuario">
+                                <small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label for="fechaNacimiento" class="col-sm-2 col-form-label">Fecha de nacimiento</label>
@@ -99,6 +107,23 @@
                                 <small class="text-danger" th:if="${#fields.hasErrors('nroCasa')}" th:errors="*{nroCasa}"></small>
                         </div>
                     </div>
+                    
+                    <div class="form-group row">
+                        <label for="nroCasa" class="col-sm-2 col-form-label">Contraseña</label>
+                        <div class="col-sm-10">
+                                <input type="password" required class="form-control"
+                            th:errorclass="'form-control is-invalid'"
+                            th:field="*{password}" placeholder="Password" />
+                            
+                            <small
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('password')}"
+                            th:errors="*{password}"></small>
+                        </div>
+                    </div>
+                    
+                    
+                    
 
                     <div class="form-group row">
                         <div class="col-sm-12 mb-3 mb-sm-0 text-center">

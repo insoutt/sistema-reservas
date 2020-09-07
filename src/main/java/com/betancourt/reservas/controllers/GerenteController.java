@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.betancourt.reservas.entities.Gerente;
+import com.betancourt.reservas.entities.Rol;
 import com.betancourt.reservas.entities.Servicio;
+import com.betancourt.reservas.entities.Usuario;
 import com.betancourt.reservas.services.IGerenteService;
+import com.betancourt.reservas.services.UsuarioService;
 
 
 @Controller
@@ -30,6 +34,12 @@ import com.betancourt.reservas.services.IGerenteService;
 public class GerenteController {
 	@Autowired
 	private IGerenteService srvGerente;
+	
+	@Autowired
+	private UsuarioService srvUsuario;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	@GetMapping(value="/create")
 	public String create(Model model) {
@@ -74,10 +84,29 @@ public class GerenteController {
 			}		
 			
 			srvGerente.save(gerente);
+			
+			// Crear usuario
+			Usuario usuario = new Usuario();
+			String pass = gerente.getPassword();
+			usuario.setGenero(gerente.getGenero());
+			usuario.setEmail(gerente.getEmail());
+			usuario.setNombres(gerente.getNombres());
+			usuario.setTelefono(gerente.getTelefono());
+			usuario.setApellidos(gerente.getTelefono());
+			usuario.setCedula(gerente.getCedula());
+			usuario.setNombre(gerente.getNombre());
+			usuario.setPassword(encoder.encode(pass));			
+			usuario.getRoles().add(new Rol("ROLE_GERENTE"));
+			usuario.setHabilitado(true);
+			srvUsuario.save(usuario);
+			// Fin crear usuario
+			
 			status.setComplete();
 			flash.addFlashAttribute("success", message);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			flash.addFlashAttribute("error", ex.getMessage());
+			return "gerente/form";	
 		}
 		return "redirect:/gerente/list";
 	}
