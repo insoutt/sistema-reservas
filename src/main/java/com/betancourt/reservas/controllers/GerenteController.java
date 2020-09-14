@@ -65,7 +65,7 @@ public class GerenteController {
 	public String save(@Validated Gerente gerente, BindingResult result, Model model,
 			@RequestParam("photo") MultipartFile image,
 			SessionStatus status, RedirectAttributes flash) {
-		
+		System.out.println("Gerente guardado1");	
 		try {
 			
 			String message = "Gerente agregado correctamente";
@@ -102,7 +102,7 @@ public class GerenteController {
 			usuario.setEmail(gerente.getEmail());
 			usuario.setNombres(gerente.getNombres());
 			usuario.setTelefono(gerente.getTelefono());
-			usuario.setApellidos(gerente.getTelefono());
+			usuario.setApellidos(gerente.getApellidos());
 			usuario.setCedula(gerente.getCedula());
 			usuario.setNombre(gerente.getNombre());
 			usuario.setPassword(encoder.encode(pass));			
@@ -113,6 +113,7 @@ public class GerenteController {
 			
 			srvGerente.save(gerente);
 			status.setComplete();
+			System.out.println("Gerente guardado");
 			flash.addFlashAttribute("success", message);
 		} catch (Exception ex) {
 			ex.printStackTrace();

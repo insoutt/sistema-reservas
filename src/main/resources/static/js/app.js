@@ -128,6 +128,96 @@ function objectifyForm(formArray) {
 	return returnArray;
 }
 
+function chart() {
+
+	ajaxReport('/reservacion/reporte-reservas-por-estado-y-servicio', (response) => {
+		console.log('res', response);
+		
+		let labels = response.map((data) => data.servicio);
+		labels = labels.filter((item, i) => labels.indexOf(item) == i)
+	
+//		const colors = response.map((data) => random_rgba(1));
+		const bgColors = response.map((data) => random_rgba(0.2));
+		
+		var data = {};
+		const estados = ['Atendido', 'Cancelar', 'Pendiente'];
+		response.forEach((item) => {
+			if(typeof data[item.servicio] === 'undefined') {
+				data[item.servicio] = new Array(3).fill(0);
+			}
+			
+			const indexEstado = estados.indexOf(item.estado); 
+			data[item.servicio][indexEstado] = item.total;
+		})
+		console.log('dat', data);
+		
+		let index = 0;
+		const aux = [];
+		const datasets = estados.map((estado) => {
+			return {
+				label: estado,
+				backgroundColor: random_rgba(0.5),			
+				borderWidth: 1,
+				data: []
+			}
+		})
+		
+		
+		for(let key in data) {
+			let totales = data[key];
+			datasets[0].data.push(totales[0]);
+			datasets[1].data.push(totales[1]);
+			datasets[2].data.push(totales[2]);
+		}
+		console.log('est', datasets);
+	
+		
+		/*
+		for(let key in data) {
+			let total = data[key];
+			
+			datasets.push({
+				label: key,
+				backgroundColor: Color(getRandomColor()).alpha(0.5).rgbString(),			
+				borderWidth: 1,
+				data: total
+			})
+		}
+		*/
+		
+		var barChartData = {
+			labels,
+			datasets,
+
+		};
+		
+		
+		var ctx = document.getElementById('chart').getContext('2d');
+		ctx.height= 150;
+		window.myBar = new Chart(ctx, {
+			type: 'bar',
+			data: barChartData,
+			options: {
+				responsive: true,
+				legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					text: 'Reservaciones por estado, servicio y cliente'
+				},
+				scales: {
+			        yAxes: [{
+			            ticks: {
+			                beginAtZero: true
+			            }
+			        }]
+			    }
+			}
+		});
+		
+	});
+}
 
 function chart1() {
 
@@ -224,7 +314,6 @@ function random_rgba(opacity) {
 
 
 $(document).ready(() => {
-	chart1();
-		chart2();
+	chart();
 				
 })

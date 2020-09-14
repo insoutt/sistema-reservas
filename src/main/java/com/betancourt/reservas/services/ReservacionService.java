@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.betancourt.reservas.dao.IReservacion;
 import com.betancourt.reservas.entities.Reservacion;
+import com.betancourt.reservas.reporting.RptReservacionesPorEstadoYServicio;
 import com.betancourt.reservas.reporting.RptReservacionesServicio;
 
 @Service
@@ -49,13 +50,27 @@ public class ReservacionService implements IReservacionService {
 		return (List<Reservacion>) dao.findAll();
 	}
 	
+	public List<RptReservacionesPorEstadoYServicio> rptReservacionesPorEstadoYServicio() {
+		StoredProcedureQuery query = em.createStoredProcedureQuery("reservas_por_estado_y_servicio");
+		query.execute();
+		List<Object[]> datos = query.getResultList();	
+
+		return datos.stream()
+				.map(r -> new RptReservacionesPorEstadoYServicio((String)r[0], (String)r[1], (BigInteger)r[2]))
+				.collect(Collectors.toList());		
+	}
+	
 	public List<RptReservacionesServicio> rptReservacionesServicio() {
 		StoredProcedureQuery query = em.createStoredProcedureQuery("reservaciones_por_servicio");
 		query.execute();
 		List<Object[]> datos = query.getResultList();		
+		List<RptReservacionesServicio> rptReservacionesServicio = null;
+		return rptReservacionesServicio;
+		/*
 		return datos.stream()
 				.map(r -> new RptReservacionesServicio((BigInteger)r[0], (String)r[1]))
 				.collect(Collectors.toList());		
+				*/
 	}
 	
 	public List<RptReservacionesServicio> rptReservacionesEstado(String estado) {
@@ -63,10 +78,13 @@ public class ReservacionService implements IReservacionService {
 		query.registerStoredProcedureParameter("pr_estado", String.class, ParameterMode.IN);
 		query.setParameter("pr_estado", estado);
 		query.execute();
-		List<Object[]> datos = query.getResultList();		
-		return datos.stream()
+		List<Object[]> datos = query.getResultList();	
+		List<RptReservacionesServicio> rptReservacionesEstado = null;
+		return rptReservacionesEstado;
+		/*return datos.stream()
 				.map(r -> new RptReservacionesServicio((BigInteger)r[0], (String)r[1]))
 				.collect(Collectors.toList());		
+				*/
 	}
 
 }

@@ -97,6 +97,8 @@ public class UsuarioController {
 			{	
 				model.addAttribute("title", "Registro de nuevo usuario");
 				model.addAttribute("usuario", usuario);
+				System.out.println("Error");
+				System.out.println(result.getAllErrors().get(0));
 				return "usuario/form";
 			}			
 			String pass = usuario.getPassword();
@@ -107,6 +109,7 @@ public class UsuarioController {
 			flash.addFlashAttribute("success", "El usuario fue agregado con éxito.");
 		}
 		catch(Exception ex) {
+			ex.printStackTrace();
 			flash.addFlashAttribute("error", "El usuario no pudo ser agregado.");
 		}
 		return "redirect:/login";		

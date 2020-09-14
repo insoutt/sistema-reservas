@@ -35,7 +35,7 @@ private static final long serialVersionUID = 1L;
 	
 	@Column(name="nombre", unique=true)
 	@NotEmpty
-	@Size(min=4)
+	@Size(min=3)
 	private String nombre;
 	
 	@Column(name="password")

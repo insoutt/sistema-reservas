@@ -25,6 +25,7 @@ import com.betancourt.reservas.entities.Cliente;
 import com.betancourt.reservas.entities.Gerente;
 import com.betancourt.reservas.entities.Reservacion;
 import com.betancourt.reservas.entities.Servicio;
+import com.betancourt.reservas.reporting.RptReservacionesPorEstadoYServicio;
 import com.betancourt.reservas.reporting.RptReservacionesServicio;
 import com.betancourt.reservas.services.IClienteService;
 import com.betancourt.reservas.services.IReservacionService;
@@ -125,6 +126,16 @@ public class ReservacionController {
 		model.addAttribute("title", "Listado de reservaciones");
 		model.addAttribute("reservaciones", reservaciones);
 		return "reservacion/list";
+	}
+	
+	@GetMapping(value = "/reporte-reservas-por-estado-y-servicio", produces="application/json")
+	public @ResponseBody List<RptReservacionesPorEstadoYServicio> rptReservacionesPorEstadoYServicio(Model model) {				
+		try {			
+			return this.srvReservacion.rptReservacionesPorEstadoYServicio();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}		
 	}
 	
 	@GetMapping(value = "/reporte-reservas-por-servicio", produces="application/json")

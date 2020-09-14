@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.betancourt.reservas.entities.Reservacion;
+import com.betancourt.reservas.reporting.RptReservacionesPorEstadoYServicio;
 import com.betancourt.reservas.reporting.RptReservacionesServicio;
 
 public interface IReservacionService {
@@ -15,4 +16,5 @@ public interface IReservacionService {
 	public List<Reservacion> findAll();
 	public List<RptReservacionesServicio> rptReservacionesServicio();
 	public List<RptReservacionesServicio> rptReservacionesEstado(String estado);
+	public List<RptReservacionesPorEstadoYServicio> rptReservacionesPorEstadoYServicio();
 }
